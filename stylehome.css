@@ -1,0 +1,838 @@
+ /* --- Global Reset & Brand Variables --- */
+    :root {
+        --dark-serpent: #133020;
+        --castleton-green: #046241;
+        --saffaron: #FFB347;
+        --earth-yellow: #FFC370;
+        --paper: #f5eedb;
+        --sea-salt: #F9F7F7;
+        --white: #ffffff;
+        --font-primary: 'Manrope', sans-serif;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: var(--font-primary);
+        line-height: 1.7;
+        color: var(--dark-serpent);
+        background-color: var(--white);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 40px;
+    }
+
+    /* --- UPDATED: Transparent Header --- */
+    .main-header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        background: transparent;
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header-container { display: flex; justify-content: space-between; align-items: center; }
+
+
+
+  /* --- START: FINAL CUSTOMIZABLE LOGO CSS --- */
+
+/* This rule styles the main logo container */
+.logo svg {
+    height: 35px;
+    width: auto;
+    vertical-align: middle;
+    /* This prevents the shape from being cut off if you make it too big */
+    overflow: visible; 
+}
+
+/* This rule styles the text inside the logo */
+.logo-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: 27px;
+    font-weight: 700;
+}
+.logo-text2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 20.5px;
+    font-weight: 700;
+}
+/* 
+   THIS IS WHERE YOU CUSTOMIZE THE SHAPE SIZE!
+   --------------------------------------------
+   The 'transform: scale()' property lets you resize the shape.
+   - scale(1.0) is normal size.
+   - scale(0.8) is 80% of normal size (smaller).
+   - scale(1.2) is 120% of normal size (bigger).
+*/
+.logo-shape {
+    fill: var(--saffaron); /* Yellow color */
+    transform-origin: center; /* Ensures scaling and moving is predictable */
+    transition: transform 0.3s ease; /* Smooth animation for any changes */
+    
+    /* 
+       CUSTOMIZATION CONTROLS:
+       -----------------------
+       - scale(): Resizes the shape. 1.0 is normal, 0.8 is smaller, 1.2 is bigger.
+       - translateX(): Moves the shape left or right. Use negative numbers (e.g., -5px) to move left.
+       - translateY(): Moves the shape up or down. Use negative numbers (e.g., -2px) to move up.
+    */
+    
+    /* CHANGE THE VALUES BELOW TO RESIZE AND MOVE THE HEXAGON */
+    transform: 
+       scale(0.5, 1.0)          /* <-- 1. Set the size first */
+       scale(0.5)
+        translateX(-340px)     /* <-- 2. Adjust left/right position */
+        translateY(-2px);    /* <-- 3. Adjust up/down position */
+}
+/* This rule sets the color of the text */
+.logo-text {
+    fill: var(--castleton-green); /* Green color */
+}
+
+.logo-text2 {
+    fill: var(--castleton-green); /* Green color */
+}
+/* --- END: FINAL CUSTOMIZABLE LOGO CSS --- */
+
+/* --- START: CHATBOT STYLES --- */
+/* This section styles the entire chatbot interface */
+/* This is the existing rule for the bubble */
+#chat-bubble {
+    width: 60px;
+    height: 60px;
+    background-color: var(--castleton-green);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease; /* Changed to 'all' for width transition */
+    position: relative; /* Needed for the indicator */
+}
+
+/* --- ADD THIS NEW CSS BLOCK --- */
+#chat-indicator {
+    position: absolute;
+    right: 75px; /* Position it to the left of the bubble */
+    background-color: var(--dark-serpent);
+    color: var(--white);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap; /* Prevents the text from wrapping */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    /* Hidden by default */
+    opacity: 0;
+    transform: translateX(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none; /* So it doesn't block clicks */
+}
+
+/* --- AND ADD THIS RULE, TOO --- */
+/* Show the indicator when hovering over the main container */
+#chatbot-container:hover #chat-indicator {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+#chat-bubble {
+    width: 60px;
+    height: 60px;
+    background-color: var(--castleton-green);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+#chat-bubble:hover {
+    transform: scale(1.1);
+}
+
+#chat-bubble svg {
+    width: 32px;
+    height: 32px;
+}
+
+#chat-window {
+    position: absolute;
+    bottom: 80px; /* Position above the bubble */
+    right: 0;
+    width: 350px;
+    max-height: 500px;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Hidden by default, with animation properties */
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#chat-window.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+#chat-header {
+    background-color: var(--dark-serpent);
+    color: var(--white);
+    padding: 15px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#close-chat-btn {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 18px;
+    max-width: 80%;
+    line-height: 1.5;
+}
+
+.bot-message {
+    background-color: var(--sea-salt);
+    color: var(--dark-serpent);
+    border-bottom-left-radius: 4px;
+    align-self: flex-start;
+}
+
+.user-message {
+    background-color: var(--castleton-green);
+    color: var(--white);
+    border-bottom-right-radius: 4px;
+    align-self: flex-end;
+}
+
+#chat-options {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.option-btn {
+    background-color: var(--white);
+    border: 1px solid var(--castleton-green);
+    color: var(--castleton-green);
+    padding: 8px 12px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-size: 14px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.option-btn:hover {
+    background-color: var(--castleton-green);
+    color: var(--white);
+}
+
+/* --- END: CHATBOT STYLES --- */
+
+
+    .main-nav ul { list-style: none; display: flex; gap: 40px; }
+    .main-nav a {
+        text-decoration: none;
+        color: var(--white);
+        font-weight: 500;
+        padding-bottom: 5px;
+        border-bottom: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+    .main-nav a:hover, .main-nav a.active {
+        color: var(--white);
+        border-bottom-color: var(--white);
+    }
+    .btn-outline-light {
+        display: inline-block;
+        padding: 10px 28px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        background: transparent;
+        color: var(--white);
+        border: 2px solid var(--white);
+        transition: all 0.3s ease;
+    }
+    .btn-outline-light:hover {
+        background: var(--white);
+        color: var(--dark-serpent);
+    }
+
+    /* --- NEW: Video Slideshow Hero --- */
+    .slideshow-container {
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+        background-color: #111; /* Fallback for slow loading video */
+    }
+
+    .slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1.5s ease-in-out;
+        z-index: 1;
+    }
+    .slide.active { opacity: 1; }
+
+    .video-background {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -1;
+        transform: translateX(-50%) translateY(-50%);
+        object-fit: cover;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(19, 48, 32, 0.65); /* Dark Serpent Green with opacity */
+        z-index: 2;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 3;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: var(--white);
+        padding: 20px;
+    }
+    .hero-content h1 { font-size: 3.5rem; color: var(--white); margin-bottom: 1rem; }
+    .hero-content p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 2rem auto; opacity: 0.9; color: var(--white); }
+
+    /* Slideshow Navigation Controls */
+    .slide-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 4;
+        background: rgba(0,0,0,0.2);
+        border: none;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        padding: 10px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    .slide-arrow:hover { background: rgba(0,0,0,0.5); }
+    .prev { left: 30px; }
+    .next { right: 30px; }
+
+    .slide-indicators {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 4;
+        display: flex;
+        gap: 15px;
+    }
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.4);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .dot:hover, .dot.active { background: var(--white); }
+
+    /* --- START: UPGRADED PILLARS SECTION STYLES --- */
+
+.content-section { 
+    padding: 6rem 0;
+    position: relative; /* Needed for background elements */
+    overflow: hidden; /* Keeps animated elements contained */
+}
+
+/* New class for specific targeting */
+.pillars-section {
+    background-color: var(--white);
+}
+
+.section-title { 
+    font-size: 2.8rem; 
+    text-align: center; 
+    margin-bottom: 4rem; 
+    color: var(--dark-serpent); 
+}
+
+.grid-3 { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 2.5rem; /* Increased gap slightly */
+}
+
+.card { 
+    background: var(--white); 
+    padding: 2.5rem; 
+    border: 1px solid #e0e0e0;
+    border-radius: 12px; 
+    text-align: center; /* Center align content */
+    
+    /* Animation Properties */
+    opacity: 0; /* Start hidden for scroll animation */
+    transform: translateY(30px); /* Start slightly lower */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* This class will be added by JavaScript when the card is visible */
+.card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* The modern hover effect */
+.card:hover {
+    transform: translateY(-10px); /* Lifts the card up */
+    border-color: var(--castleton-green);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem auto;
+    background-color: var(--sea-salt);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--castleton-green);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+.card:hover .card-icon {
+    background-color: var(--castleton-green);
+    color: var(--white);
+}
+
+.card h3 { 
+    color: var(--castleton-green); 
+    font-size: 1.5rem; 
+    margin-bottom: 1rem; 
+}
+
+.card p { 
+    font-size: 1rem; 
+    color: var(--dark-serpent);
+    line-height: 1.7;
+    margin: 0; /* Remove default paragraph margin */
+}
+
+/* Staggered animation delay for each card */
+.card:nth-child(2) {
+    transition-delay: 0.2s;
+}
+.card:nth-child(3) {
+    transition-delay: 0.4s;
+}
+
+/* --- END: UPGRADED PILLARS SECTION STYLES --- */
+
+    .btn-primary, .btn-accent { display: inline-block; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+    .btn-primary { background: var(--dark-serpent); color: var(--white); border: 2px solid var(--dark-serpent); }
+    .btn-primary:hover { background: var(--castleton-green); border-color: var(--castleton-green); }
+    .btn-accent { background: var(--saffaron); color: var(--dark-serpent); border: 2px solid var(--saffaron); }
+    .btn-accent:hover { background: var(--earth-yellow); border-color: var(--earth-yellow); }
+
+    /* --- Footer (Unchanged) --- */
+    .main-footer { background: var(--dark-serpent); color: rgba(255, 255, 255, 0.8); padding: 3rem 0; text-align: center; }
+
+    /* --- Responsive Design --- */
+    @media (max-width: 992px) { .grid-3 { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .main-nav, .btn-contact { display: none; } .hero-content h1 { font-size: 2.5rem; } .slide-arrow { display: none;} }
+    /* --- START: RESPONSIVE NAVIGATION STYLES --- */
+
+/* Initially, hide the hamburger button on desktop */
+#hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 24px;
+    position: relative;
+    z-index: 1001; /* Above the mobile panel */
+}
+
+#hamburger-btn span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--white);
+    border-radius: 3px;
+    position: absolute;
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+#hamburger-btn span:nth-child(1) { top: 0; }
+#hamburger-btn span:nth-child(2) { top: 10px; }
+#hamburger-btn span:nth-child(3) { bottom: 0; }
+
+/* Styles for the "X" close icon when menu is open */
+#hamburger-btn.is-active span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+}
+#hamburger-btn.is-active span:nth-child(2) {
+    opacity: 0;
+}
+#hamburger-btn.is-active span:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+
+/* The mobile navigation panel */
+#mobile-nav-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(19, 48, 32, 0.98); /* Semi-transparent Dark Serpent */
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    /* Hidden by default with a transition */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+#mobile-nav-panel.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.main-nav-mobile ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.main-nav-mobile li {
+    margin: 20px 0;
+}
+
+.main-nav-mobile a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 2rem; /* Large, touch-friendly text */
+    font-weight: 600;
+    padding: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: block;
+}
+
+/* Animate links when panel opens */
+#mobile-nav-panel.is-open .main-nav-mobile a {
+    opacity: 1;
+    transform: translateY(0);
+}
+#mobile-nav-panel.is-open .main-nav-mobile li:nth-child(2) a { transition-delay: 0.1s; }
+#mobile-nav-panel.is-open .main-nav-mobile li:nth-child(3) a { transition-delay: 0.2s; }
+#mobile-nav-panel.is-open .main-nav-mobile li:nth-child(4) a { transition-delay: 0.3s; }
+
+
+/* --- Media Query for Mobile --- */
+/* This is the key part that activates the mobile menu */
+@media (max-width: 900px) {
+    /* Hide the desktop navigation and contact button */
+    .main-nav-desktop, .btn-contact {
+        display: none;
+    }
+    /* Show the hamburger button */
+    #hamburger-btn {
+        display: block;
+    }
+}
+
+/* --- END: RESPONSIVE NAVIGATION STYLES --- */
+/* --- START: TEXT-TO-SPEECH VISUAL EFFECT --- */
+
+.card {
+    /* Add cursor pointer to show it's clickable */
+    cursor: pointer; 
+}
+
+/* This style applies ONLY when a card has the 'speaking' class */
+.card.speaking {
+    border-color: var(--saffaron); /* Use accent color for border */
+    box-shadow: 0 0 20px 5px rgba(255, 179, 71, 0.4); /* Saffaron glow */
+    transform: translateY(-10px);
+}
+
+.card.speaking .card-icon {
+    background-color: var(--saffaron); /* Change icon background to accent color */
+    color: var(--dark-serpent); /* Make icon symbol dark */
+}
+
+/* --- END: TEXT-TO-SPEECH VISUAL EFFECT --- */
+/* --- START: VIDEO LIGHTBOX & BUTTON STYLES --- */
+
+/* Styles for the "Go" button container inside the card */
+.card-action {
+    margin-top: 1.5rem;
+    height: 40px; /* Reserve space for the button */
+}
+
+/* The "Watch Video" button itself */
+.watch-video-btn {
+    background-color: var(--saffaron);
+    color: var(--dark-serpent);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    opacity: 0; /* Hidden by default */
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show the button only on the "speaking" card */
+.card.speaking .watch-video-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* The full-screen video player overlay */
+#video-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2000; /* Must be on top of everything */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Hidden by default */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+#video-lightbox.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* The video element itself */
+#lightbox-video {
+    width: 90%;
+    max-width: 1200px;
+    height: auto;
+    max-height: 90vh;
+}
+
+/* The "Close" button for the video player */
+#close-video-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 48px;
+    font-weight: 300;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+#close-video-btn:hover {
+    opacity: 1;
+}
+
+/* --- END: VIDEO LIGHTBOX & BUTTON STYLES --- */
+
+/* --- Global Reset & Brand Variables --- */
+:root {
+    --dark-serpent: #133020;
+    --castleton-green: #046241;
+    --saffaron: #FFB347;
+    --white: #ffffff;
+    --sea-salt: #F9F7F7;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Manrope', sans-serif; line-height: 1.7; color: var(--dark-serpent); background-color: var(--white); }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+/* --- Transparent Header & Logo --- */
+.main-header { position: absolute; top: 0; left: 0; width: 100%; z-index: 1000; background: transparent; padding: 20px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.15); }
+.header-container { display: flex; justify-content: space-between; align-items: center; }
+.logo img { height: 35px; display: block; }
+.main-header .logo img { filter: brightness(0) invert(1); }
+.header-actions { display: flex; align-items: center; gap: 30px; }
+.btn-outline-light { display: inline-block; padding: 10px 28px; border-radius: 6px; text-decoration: none; font-weight: 600; background: transparent; color: var(--white); border: 2px solid var(--white); transition: all 0.3s ease; }
+.btn-outline-light:hover { background: var(--white); color: var(--dark-serpent); }
+
+/* --- Video Hero Section --- */
+.hero-video-section { height: 70vh; /* Shorter than homepage hero */ position: relative; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); overflow: hidden; }
+.video-background { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; object-fit: cover; transform: translate(-50%, -50%); z-index: -2; }
+.overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(19, 48, 32, 0.7); z-index: -1; }
+.hero-content { z-index: 3; }
+.hero-content h1 { font-size: 3.5rem; color: var(--white); margin-bottom: 1rem; }
+.hero-content p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; opacity: 0.9; color: var(--white); }
+
+/* --- Content Section & Services Grid --- */
+.content-section1 { padding: 6rem 0; }
+.section-title { font-size: 2.8rem; text-align: center; margin-bottom: 4rem; color: var(--dark-serpent); }
+.services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+.card { background: var(--white); padding: 2.5rem; border: 1px solid #e0e0e0; border-radius: 12px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08); }
+.card h3 { color: var(--castleton-green); font-size: 1.5rem; margin-bottom: 1rem; }
+.card p { font-size: 1rem; color: var(--dark-serpent); line-height: 1.7; margin: 0; }
+
+/* --- NEW: Scroll Animation Styles --- */
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.scroll-animate.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* Stagger the animation for the cards */
+.services-grid .card:nth-child(2) { transition-delay: 0.1s; }
+.services-grid .card:nth-child(3) { transition-delay: 0.2s; }
+.services-grid .card:nth-child(4) { transition-delay: 0.3s; }
+
+/* --- Responsive Navigation --- */
+.main-nav-desktop { display: block; }
+.main-nav-desktop ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 40px; }
+.main-nav-desktop a { text-decoration: none; color: var(--white); font-weight: 500; transition: color 0.3s; }
+.main-nav-desktop a.active { border-bottom: 2px solid var(--white); padding-bottom: 5px; }
+#hamburger-btn { display: none; background: none; border: none; cursor: pointer; padding: 0; width: 30px; height: 24px; position: relative; z-index: 1001; }
+#hamburger-btn span { display: block; width: 100%; height: 3px; background-color: var(--white); border-radius: 3px; position: absolute; left: 0; transition: all 0.3s ease; }
+#hamburger-btn span:nth-child(1) { top: 0; }
+#hamburger-btn span:nth-child(2) { top: 10px; }
+#hamburger-btn span:nth-child(3) { bottom: 0; }
+#hamburger-btn.is-active span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+#hamburger-btn.is-active span:nth-child(2) { opacity: 0; }
+#hamburger-btn.is-active span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+#mobile-nav-panel { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(19, 48, 32, 0.98); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+#mobile-nav-panel.is-open { opacity: 1; pointer-events: auto; }
+.main-nav-mobile ul { list-style: none; padding: 0; text-align: center; }
+.main-nav-mobile li { margin: 20px 0; }
+.main-nav-mobile a { color: var(--white); text-decoration: none; font-size: 2rem; font-weight: 600; }
+
+/* --- Footer --- */
+.main-footer { background: var(--dark-serpent); color: rgba(255, 255, 255, 0.8); padding: 3rem 0; text-align: center; }
+.footer-container { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.main-footer .logo img { height: 30px; filter: brightness(0) invert(1); }
+
+/* --- Chatbot Styles (copied from homepage) --- */
+#chatbot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+#chat-bubble { width: 60px; height: 60px; background-color: var(--castleton-green); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease; position: relative; }
+#chat-bubble:hover { transform: scale(1.1); }
+#chat-bubble svg { width: 32px; height: 32px; }
+#chat-indicator { position: absolute; right: 75px; background-color: var(--dark-serpent); color: var(--white); padding: 8px 15px; border-radius: 20px; font-size: 14px; font-weight: 500; white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.2); opacity: 0; transform: translateX(10px); transition: opacity 0.3s ease, transform 0.3s ease; pointer-events: none; }
+#chatbot-container:hover #chat-indicator { opacity: 1; transform: translateX(0); }
+#chat-window { position: absolute; bottom: 80px; right: 0; width: 350px; max-height: 500px; background-color: var(--white); border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: flex; flex-direction: column; overflow: hidden; opacity: 0; transform: translateY(20px); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+#chat-window.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#chat-header { background-color: var(--dark-serpent); color: var(--white); padding: 15px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+#close-chat-btn { background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; }
+#chat-messages { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+.message { padding: 10px 15px; border-radius: 18px; max-width: 80%; line-height: 1.5; }
+.bot-message { background-color: var(--sea-salt); color: var(--dark-serpent); border-bottom-left-radius: 4px; align-self: flex-start; }
+.user-message { background-color: var(--castleton-green); color: var(--white); border-bottom-right-radius: 4px; align-self: flex-end; }
+#chat-options { padding: 15px; border-top: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 10px; }
+.option-btn { background-color: var(--white); border: 1px solid var(--castleton-green); color: var(--castleton-green); padding: 8px 12px; border-radius: 15px; cursor: pointer; font-size: 14px; transition: background-color 0.2s, color 0.2s; }
+.option-btn:hover { background-color: var(--castleton-green); color: var(--white); }
+
+/* --- Media Queries for Responsiveness --- */
+@media (max-width: 900px) {
+    .main-nav-desktop, .btn-contact { display: none; }
+    #hamburger-btn { display: block; }
+}
+@media (max-width: 768px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .hero-content h1 { font-size: 2.5rem; }
+    .section-title { font-size: 2.2rem; }
+}

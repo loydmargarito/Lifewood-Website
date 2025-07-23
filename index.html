@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifewood - Proactive Technology Partners</title>
+    <link rel="stylesheet" href="stylehome.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- The header is now transparent and placed over the video hero -->
+   <!-- START: Replace your old header with this one -->
+<header class="main-header">
+    <div class="container header-container">
+        
+ <!-- FINAL SVG LOGO - READY FOR CSS RESIZING -->
+<a href="index.html" class="logo" aria-label="Lifewood Homepage">
+    <svg viewBox="0 0 205 40" xmlns="http://www.w3.org/2000/svg">
+        <path class="logo-shape" d="M0 10.77L14.77 0L29.53 10.77V30.23L14.77 41L0 30.23V10.77Z" />
+        <text x="0" y="29" class="logo-text">lifewoo</text>
+         <text x="94.5" y="29" class="logo-text2">D</text>
+       
+    </svg>
+</a>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="services.html">Project</a></li>
+                
+            </ul>
+        </nav>
+        <a href="contact.html" class="btn btn-outline-light btn-contact">Get In Touch</a>
+      <!-- NEW: Hamburger button for mobile -->
+                <button id="hamburger-btn" aria-label="Open Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- NEW: Mobile navigation panel (hidden by default) -->
+        <div id="mobile-nav-panel">
+            <nav class="main-nav-mobile">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- NEW: Full-screen Video Slideshow Section -->
+        <section class="slideshow-container">
+            
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <video class="video-background" autoplay muted loop playsinline>
+                    <source src="1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide">
+                 <video class="video-background" autoplay muted loop playsinline>
+                    <source src="2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide">
+                <video class="video-background" autoplay muted loop playsinline>
+                    <source src="3.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Overlay and Content for the Hero -->
+            <div class="overlay"></div>
+            <div class="hero-content">
+                <h1>Engineering the Future, Today.</h1>
+                <p>We are a global technology partner, building adaptive and intelligent systems that empower businesses to not just react to change, but to lead it.</p>
+                <a href="services.html" class="btn btn-accent" style="margin-top: 2rem;">Discover Our Solutions</a>
+            </div>
+
+            <!-- Slideshow Navigation Controls -->
+            <button class="slide-arrow prev" onclick="moveSlide(-1)">❮</button>
+            <button class="slide-arrow next" onclick="moveSlide(1)">❯</button>
+            <div class="slide-indicators">
+                <span class="dot active" onclick="showSlide(0)"></span>
+                <span class="dot" onclick="showSlide(1)"></span>
+                <span class="dot" onclick="showSlide(2)"></span>
+            </div>
+        </section>
+
+      <!-- START: UPGRADED PILLARS SECTION -->
+        <section class="content-section pillars-section">
+            <div class="container">
+                <h2 class="section-title">Core Pillars of Innovation</h2>
+                <div class="grid-3">
+                    
+                    <!-- Card 1: Adaptive AI - Linked to 1.mp4 -->
+                    <div class="card" data-video-src="11.mp4">
+                        <div class="card-icon">...</div>
+                        <h3>Adaptive AI</h3>
+                        <p class="card-description">We leverage machine learning to create systems that learn, predict, and evolve, turning data into decisive action and a tangible competitive edge.</p>
+                        <!-- NEW: Placeholder for the button -->
+                        <div class="card-action"></div>
+                    </div>
+
+                    <!-- Card 2: Global Platforms - Linked to 2.mp4 -->
+                    <div class="card" data-video-src="22.mp4">
+                        <div class="card-icon">...</div>
+                        <h3>Global Platforms</h3>
+                        <p class="card-description">Our expertise lies in building robust, scalable technology infrastructures that perform flawlessly across borders, cultures, and markets.</p>
+                        <!-- NEW: Placeholder for the button -->
+                        <div class="card-action"></div>
+                    </div>
+                    
+                    <!-- Card 3: Digital Transformation - Linked to 3.mp4 -->
+                    <div class="card" data-video-src="33.mp4">
+                        <div class="card-icon">...</div>
+                        <h3>Digital Transformation</h3>
+                        <p class="card-description">We guide organizations through complex technological shifts, ensuring every step is purposeful, efficient, and aligned with core business goals.</p>
+                        <!-- NEW: Placeholder for the button -->
+                        <div class="card-action"></div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- END: UPGRADED PILLARS SECTION -->
+
+        <section class="content-section hero-light">
+            <div class="container" style="text-align: center;">
+                <h2 class="section-title" style="margin-bottom: 1.5rem;">Ready to Build What's Next?</h2>
+                <p style="margin: 0 auto 2rem auto;">Our team is always on, ready to tackle your most ambitious challenges. Let's start a conversation about your future.</p>
+                <a href="contact.html" class="btn btn-primary">Partner With Us</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <p>© 2025 Lifewood. Always On. Never Off.</p>
+        </div>
+    </footer>
+   <!-- START: CHATBOT HTML STRUCTURE -->
+    <div id="chatbot-container">
+        <!-- The main chat window (hidden by default) -->
+        <div id="chat-window">
+            <div id="chat-header">
+                <span>Lifewood Assistant</span>
+                <button id="close-chat-btn">×</button>
+            </div>
+            <div id="chat-messages">
+                <!-- Messages will be added here by JavaScript -->
+            </div>
+            <div id="chat-options">
+                <!-- Option buttons will be added here by JavaScript -->
+            </div>
+        </div>
+
+
+       <!-- The clickable chat bubble icon -->
+        <div id="chat-bubble">
+            <!-- NEW "CHAT WITH US" INDICATOR -->
+            <span id="chat-indicator">Chat with us</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path></svg>
+        </div>
+
+         <div id="video-lightbox">
+        <button id="close-video-btn">×</button>
+        <video id="lightbox-video" controls></video>
+    </div>
+    <script src="script.js"></script>
+    <!-- ADD THIS NEW SCRIPT FOR THE CHATBOT -->
+    <script src="chatbot.js"></script>
+    <!-- IMPORTANT: Link to the new JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
